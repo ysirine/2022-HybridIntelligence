@@ -1,6 +1,8 @@
-""" label_data.py
+""" labelDataGUI.py
 
-Basic GUI to load expert dataset and label visual and trajectory features.
+GUI used by humans to label image frames extracted from the domonstration videos.
+Example to label one demonstration: run  ```python label_data.py --relative_dataset_addr data/MineRLBasaltFindCave-v0/v3_organic_gourd_yeti-2_504-817/```
+Each time new data is labled, run ```python compileLabels.py``` to aggregate the labels of all datasets in two ```npy``` files (one for images and other for labels) 
 
 """
 import argparse
@@ -161,20 +163,6 @@ class KAIROS_Label_GUI():
         # Keep original frame
         self.original_frame = copy.deepcopy(frame)
 
-        # Reset labels
-        # '[n] NONE',
-        # '[c] HAS_CAVE',
-        # '[i] INSIDE_CAVE',
-        # '[d] DANGER_AHEAD',
-        # '[m] HAS_MOUNTAIN',
-        # '[f] FACING_WALL',
-        # '[t] AT_THE_TOP',
-        # '[w] GOOD_WATERFALL_VIEW',
-        # '[p] GOOD_PEN_VIEW',
-        # '[h] GOOD_HOUSE_VIEW',
-        # '[a] HAS_ANIMALS',
-        # '[o] HAS_OPEN_SPACE',
-        # '[s] ANIMALS_INSIDE_PEN',
         self.labels = {
             'image_id': frame_counter,
             'none': 0,
