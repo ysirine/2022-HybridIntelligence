@@ -1,0 +1,18 @@
+--index-url https://test.pypi.org/simple/
+--extra-index-url https://pypi.org/simple
+git+https://github.com/HumanCompatibleAI/imitation@master#egg=imitation
+./basalt_utils
+./kairos_minerl
+minerl
+crowdai_api
+aicrowd-repo2docker
+coloredlogs
+matplotlib
+seaborn
+namesgenerator
+torchvision
+pyro4
+torchsummary
+scikit-multilearn
+transitions
+trueskill
