@@ -1,6 +1,6 @@
-""" compile_labels.py
+""" compileLabels.py
 
-Compiles all available labels in a single file.
+this file is to organize images according to their labels in order to use them later for training
 
 """
 import os, sys
@@ -32,19 +32,6 @@ def load_actions(labels_dataset_addr, relative_label_addr, dataset_addr=None):
     # Load original dataset
     data_dict, metadata_dict = load_original_dataset(labels_dataset_addr, relative_label_addr, dataset_addr)
 
-    # Parse actions 
-        # [0] "attack"
-        # [1] "back"
-        # [2] "equip"
-        # [3] "forward"
-        # [4] "jump"
-        # [5] "left"
-        # [6] "right"
-        # [7] "sneak"
-        # [8] "sprint"
-        # [9] "use"
-        # [10] "camera_up_down"
-        # [11] "camera_right_left"
     actions = np.vstack((
         data_dict['action$attack'], data_dict['action$back'], data_dict['action$equip'],
         data_dict['action$forward'], data_dict['action$jump'], data_dict['action$left'],
@@ -72,95 +59,6 @@ def print_summary(all_labels_np):
         labels_per_class = all_labels_np[all_labels_np[:,i] == 1]
         num_labels_per_class = labels_per_class.shape[0]
         print(f'  Labels for class {i}: {num_labels_per_class} ({100*num_labels_per_class/num_labels:.3f} %)')
-
-
-def load_training_data(data_paths):
-    data_images = None
-    data_labels = None
-    num_classes = 0
-
-    for data_path in data_paths:
-        data_images_for_directory = np.load(os.path.join(data_path, "images.npy"))
-        data_labels_for_directory = np.load(os.path.join(data_path, "labels.npy"))
-        if data_labels_for_directory.shape[0] != data_images_for_directory.shape[0]:
-            raise ValueError("Training data not the same length: {} vs. {}".format(data_labels_for_directory.shape[0],
-                                                                                   data_images_for_directory.shape[0]))
-
-        if data_labels is None:
-            data_labels = data_labels_for_directory
-        else:
-            if data_labels.shape[1] != data_labels_for_directory.shape[1]:
-                raise ValueError(
-                    "Data labels shape mismatch: {} vs. {}".format(data_labels.shape, data_labels_for_directory.shape))
-            data_labels = np.concatenate([data_labels, data_labels_for_directory], axis=0)
-
-        if data_images is None:
-            data_images = data_images_for_directory
-        else:
-            if data_images.shape[1:] != data_images_for_directory.shape[1:]:
-                raise ValueError(
-                    "Data images shape mismatch: {} vs. {}".format(data_images.shape, data_images_for_directory.shape))
-            data_images = np.concatenate([data_images, data_images_for_directory], axis=0)
-
-    columns_all_zero = np.argwhere(np.all(data_labels[..., :] == 0, axis=0)).flatten()
-    columns_not_all_zero = np.argwhere(np.any(data_labels[..., :] != 0, axis=0)).flatten()
-
-    data_label_names = [
-        'No Labels',
-        'Has Cave',
-        'Inside Cave',
-        'Danger Ahead',
-        'Has Mountain',
-        'Facing Wall',
-        'At the top of a waterfall',
-        'Good view of waterfall',
-        'Good view of pen',
-        'Good view of house',
-        'Has animals',
-        'Has open space',
-        'Animals inside pen',
-    ]
-    # print(columns_all_zero)
-    # print(columns_not_all_zero)
-
-    if columns_all_zero.shape[0] > 0:
-        print("Labels missing: {}".format(data_label_names[columns_all_zero]))
-    if columns_not_all_zero.shape[0] == 0:
-        raise ValueError("Labels are all 0. Check data")
-    # print("Labels contained: {}".format(data_label_names[columns_not_all_zero]))
-
-    print("Labels included in dataset")
-    label_indices = [(key, val) for key, val in enumerate(data_label_names) if key in set(columns_not_all_zero)]
-    for classifier_index, (global_index, label_name) in enumerate(label_indices):
-        print("Name: {}, Classifier Index: {}, Global Index: {}".format(label_name, classifier_index, global_index))
-
-    data_labels = np.delete(data_labels, columns_all_zero, axis=1)
-    data_labels = data_labels.astype(np.float32)
-    num_classes = columns_not_all_zero.shape[0]
-    data_images = data_images.transpose(0, 3, 1, 2)
-
-    return data_images, data_labels, num_classes
-
-
-def split_data(data_images, data_labels, train_size=0.75, val_size=0.15, test_size=0.1):
-    if train_size + val_size + test_size != 1.0:
-        raise ValueError("Percentages must sum to 1 ({} + {} + {} != 1.0)".format(train_size, val_size, test_size))
-    # split into training and validation
-    x_train, x_val, y_train, y_val = train_test_split(data_images, data_labels, test_size=val_size, random_state=2, stratify=data_labels)
-    test_size = 1.0 - train_size / (train_size + test_size)  # 1 - 0.75 / (0.75+0.1)
-
-    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=test_size, random_state=1, stratify=y_train)
-
-    print("data_images: {}".format(data_images.shape))
-    print("data_labels: {}".format(data_labels.shape))
-    print("x_train: {}".format(x_train.shape))
-    print("y_train: {}".format(y_train.shape))
-    print("x_test: {}".format(x_test.shape))
-    print("y_test: {}".format(y_test.shape))
-    print("x_val: {}".format(x_val.shape))
-    print("y_val: {}".format(y_val.shape))
-
-    return x_train, y_train, x_val, y_val, x_test, y_test
 
 
 def main():
@@ -206,7 +104,7 @@ def main():
             for dataset_file in dataset_files:
                 file_extension = dataset_file[-4:]
 
-                # Use only files with json labels
+                # Use only files/images with json labels
                 if file_extension == 'json':
                     file_number = dataset_file[-12:-5]
 
@@ -227,7 +125,7 @@ def main():
                         img_np = plt.imread(img_addr)
                         all_images_list.append(img_np)
 
-        # Save all images and all labels to disk
+        # Save all images with their labels to disk
         all_images_np = np.array(all_images_list)
         with open(f'{label_task}/images.npy', 'wb') as f:
             np.save(f, all_images_np)
@@ -240,7 +138,6 @@ def main():
         with open(f'{label_task}/actions.npy', 'wb') as f:
             np.save(f, all_actions_np)
 
-        # x_train, y_train, x_val, y_val, x_test, y_test = split_subtask_data(images, labels)
 
         print_summary(all_labels_np)
         print(f'Done. Saves images.npy and labels.npy in {label_task} folder.')
