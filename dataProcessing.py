@@ -1,3 +1,8 @@
+""" dataProcessing.py
+
+Run this code to extract images from the demonstration video and convert images, labels and  to Numpy.
+
+"""
 import os
 import sys
 import glob
