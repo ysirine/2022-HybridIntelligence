@@ -9,7 +9,7 @@ import glob
 import numpy as np
 import cv2
 
-from compile_labels import load_actions
+from compileLabels import load_actions
 
 
 def extract_dataset():
