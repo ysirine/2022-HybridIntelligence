@@ -80,19 +80,11 @@ def basic_train():
 
 def main():
     if PREPROCESS_DATASET_AND_RETRAIN:
-
-        # # train behavior cloner navigation policy for all tasks
-        # behavior_cloner.train(model_type="find_cave", experiment_name="bc_model_navigation_FINAL")
-        # behavior_cloner.train(model_type="animal_pen", experiment_name="bc_model_navigation_FINAL")
-        # behavior_cloner.train(model_type="make_waterfall", experiment_name="bc_model_navigation_FINAL")
-        # behavior_cloner.train(model_type="village_house", experiment_name="bc_model_navigation_FINAL")
-
-        # train end-to-end behavior clonerfor all tasks (baseline only)
         if TRAIN_BASELINES:
             behavior_cloner.train(model_type="find_cave", navigation=False, num_epochs = 20, experiment_name="bc_baseline")
-            # behavior_cloner.train(model_type="animal_pen", navigation=False, experiment_name="bc_baseline")
-            # behavior_cloner.train(model_type="make_waterfall", navigation=False, experiment_name="bc_baseline")
-            # behavior_cloner.train(model_type="village_house", navigation=False, experiment_name="bc_baseline")
+            behavior_cloner.train(model_type="animal_pen", navigation=False, experiment_name="bc_baseline")
+            behavior_cloner.train(model_type="make_waterfall", navigation=False, experiment_name="bc_baseline")
+            behavior_cloner.train(model_type="village_house", navigation=False, experiment_name="bc_baseline")
 
 
 
