@@ -1,14 +1,15 @@
 import aicrowd_helper
 import train_submission_code
-import test_framework
+import testKairos
 
 import os
-EVALUATION_RUNNING_ON = os.getenv('EVALUATION_RUNNING_ON', None)
-EVALUATION_STAGE = os.getenv('EVALUATION_STAGE', 'all')
-EXITED_SIGNAL_PATH = os.getenv('EXITED_SIGNAL_PATH', 'shared/exited')
+EVALUATION_RUNNING_ON='local'
+EVALUATION_STAGE='training'
+EXITED_SIGNAL_PATH='shared/training_exited'
+ENABLE_AICROWD_JSON_OUTPUT='False'
 
 # Training Phase
-if EVALUATION_STAGE in ['all', 'training']:
+if EVALUATION_STAGE in ['training']:
     aicrowd_helper.training_start()
     try:
         train_submission_code.main()
@@ -17,9 +18,9 @@ if EVALUATION_STAGE in ['all', 'training']:
         aicrowd_helper.training_error()
         print(e)
 
-
+EVALUATION_STAGE='testing'
 # Testing Phase
-if EVALUATION_STAGE in ['all', 'testing']:
+if EVALUATION_STAGE in ['testing']:
     if EVALUATION_RUNNING_ON in ['local']:
         try:
             os.remove(EXITED_SIGNAL_PATH)
@@ -27,7 +28,7 @@ if EVALUATION_STAGE in ['all', 'testing']:
             pass
     aicrowd_helper.inference_start()
     try:
-        test_framework.main()
+        testKairos.main()
         aicrowd_helper.inference_end()
     except Exception as e:
         aicrowd_helper.inference_error()
@@ -36,7 +37,3 @@ if EVALUATION_STAGE in ['all', 'testing']:
         from pathlib import Path
         Path(EXITED_SIGNAL_PATH).touch()
 
-# Launch instance manager
-if EVALUATION_STAGE in ['manager']:
-    from minerl.env.malmo import launch_instance_manager
-    launch_instance_manager()
