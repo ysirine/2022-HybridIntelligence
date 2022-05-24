@@ -1,3 +1,5 @@
+#training and testing code
+
 import aicrowd_helper
 import train_submission_code
 import testKairos
@@ -19,6 +21,7 @@ if EVALUATION_STAGE in ['training']:
         print(e)
 
 EVALUATION_STAGE='testing'
+EXITED_SIGNAL_PATH='shared/exited'
 # Testing Phase
 if EVALUATION_STAGE in ['testing']:
     if EVALUATION_RUNNING_ON in ['local']:
