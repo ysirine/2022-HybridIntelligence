@@ -253,19 +253,7 @@ def load_actions(labels_dataset_addr, relative_label_addr, dataset_addr=None):
     # Load original dataset
     data_dict, metadata_dict = load_original_dataset(labels_dataset_addr, relative_label_addr, dataset_addr)
 
-    # Parse actions
-        # [0] "attack"
-        # [1] "back"
-        # [2] "equip"
-        # [3] "forward"
-        # [4] "jump"
-        # [5] "left"
-        # [6] "right"
-        # [7] "sneak"
-        # [8] "sprint"
-        # [9] "use"
-        # [10] "camera_up_down"
-        # [11] "camera_right_left"
+
     actions = np.vstack((
         data_dict['action$attack'], data_dict['action$back'], data_dict['action$equip'],
         data_dict['action$forward'], data_dict['action$jump'], data_dict['action$left'],
