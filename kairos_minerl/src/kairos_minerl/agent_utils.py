@@ -1,3 +1,10 @@
+""" agent_utils.py
+
+This file has the Kairos framework GUI, 
+definition of tasks and subtasks in state machine, 
+visual features extraction from the agent point of view,
+Odomoetry map module
+"""
 import os, sys
 
 from numpy.lib.function_base import copy
