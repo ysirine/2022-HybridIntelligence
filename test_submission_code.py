@@ -47,7 +47,7 @@ MODEL_MAKE_WATERFALL_NAV_NUM_CLASSES = 13
 MODEL_ANIMAL_PEN_NAV_NUM_CLASSES = 13
 MODEL_VILLAGE_HOUSE_NAV_NUM_CLASSES = 13
 
-# MODEL_FIND_CAVE = "train/bc_baseline/find_cave_best_BC_model_dict.pth"
+
 MODEL_FIND_CAVE = "train/bc_model_full_FINAL/find_cave/find_cave_BC_v1_e28_l0.621_a0.805_dict.pth"
 MODEL_MAKE_WATERFALL = "train/bc_baseline/make_waterfall_best_BC_model_dict.pth"
 MODEL_ANIMAL_PEN = "train/bc_baseline/animal_pen_best_BC_model_dict.pth"
