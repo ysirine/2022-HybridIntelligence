@@ -1,3 +1,5 @@
+#Having a CUDA error in this code still hasn't solved it
+
 import aicrowd_helper
 import train_submission_code
 import testKairos
