@@ -1,3 +1,4 @@
+# Test KAIROS Agent
 
 import os
 
@@ -5,8 +6,9 @@ import gym
 import atexit
 import threading
 import minerl
+from basalt_baselines.bc import bc_baseline, WRAPPERS as bc_wrappers
 import numpy as np
-from test_submission_code import KAIROS_MineRLAgent, Episode, EpisodeDone
+from test_submission_code import KAIROS_MineRLAgent, MineRLAgent, Episode, EpisodeDone, MineRLBehavioralCloningAgent
 from minerl.herobraine.wrappers import downscale_wrapper
 from basalt_utils.utils import wrap_env
 import torch as th
@@ -15,12 +17,9 @@ import torch as th
 
 MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV', 'MineRLBasaltFindCaveHighRes-v0')
 MINERL_MAX_EVALUATION_EPISODES = int(os.getenv('MINERL_MAX_EVALUATION_EPISODES', 2))
-# We only use one evaluation thread
 EVALUATION_THREAD_COUNT = 1
 
-####################
-# EVALUATION CODE  #
-####################
+
 
 
 def main():
