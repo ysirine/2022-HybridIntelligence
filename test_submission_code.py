@@ -1,3 +1,6 @@
+    """
+    This is a template provided to all the participants at the competition in order to use fo rthe submission
+    """
 import gym
 import torch as th
 from basalt_baselines.bc import bc_baseline, WRAPPERS as bc_wrappers
