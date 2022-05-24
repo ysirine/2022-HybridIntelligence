@@ -1,3 +1,9 @@
+""" gail_wrapper.py
+
+The authors made this code to define/shape dummy actions for each task.
+
+"""
+
 import numpy as np
 import gym
 
