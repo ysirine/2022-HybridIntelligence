@@ -1,3 +1,7 @@
+    """
+    This is a template provided to all the participants at the competition in order to use fo rthe submission
+    """
+
 import logging
 import os
 import numpy as np
