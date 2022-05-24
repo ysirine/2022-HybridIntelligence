@@ -1,5 +1,6 @@
     """
-    This is a template provided to all the participants at the competition in order to use fo rthe submission
+    This is a template provided to all the participants at the competition in order to use for the submission
+    The saved models used in this code are saved in "train.zip" 
     """
 import gym
 import torch as th
