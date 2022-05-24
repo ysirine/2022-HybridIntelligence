@@ -5,9 +5,8 @@ import gym
 import atexit
 import threading
 import minerl
-from basalt_baselines.bc import bc_baseline, WRAPPERS as bc_wrappers
 import numpy as np
-from test_submission_code import KAIROS_MineRLAgent, MineRLAgent, Episode, EpisodeDone, MineRLBehavioralCloningAgent
+from test_submission_code import KAIROS_MineRLAgent, Episode, EpisodeDone
 from minerl.herobraine.wrappers import downscale_wrapper
 from basalt_utils.utils import wrap_env
 import torch as th
@@ -26,7 +25,7 @@ EVALUATION_THREAD_COUNT = 1
 
 
 def main():
-    # agent = MineRLBehavioralCloningAgent()
+
     agent = KAIROS_MineRLAgent(env_name=MINERL_GYM_ENV)
     agent.load_agent()
 
