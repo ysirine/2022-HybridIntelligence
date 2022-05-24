@@ -10,8 +10,7 @@ from test_submission_code import KAIROS_MineRLAgent, Episode, EpisodeDone
 from minerl.herobraine.wrappers import downscale_wrapper
 from basalt_utils.utils import wrap_env
 import torch as th
-# import coloredlogs
-#coloredlogs.install(logging.DEBUG)
+
 
 
 MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV', 'MineRLBasaltFindCaveHighRes-v0')
